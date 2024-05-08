@@ -1,4 +1,4 @@
-# Pomodoro Timer App
+# DT Money App
 
 ## Descrição
 
