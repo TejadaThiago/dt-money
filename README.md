@@ -21,6 +21,17 @@ O DT Money é uma aplicação desenvolvida em React.js com TypeScript para auxil
 - Interface intuitiva e amigável
 - Totalizadores
 
+## Preview
+
+  ![image](https://github.com/TejadaThiago/dt-money/assets/124005667/4fd7d68d-25c8-44dc-bf1c-bbf335502513)
+
+   Veja o app:
+
+   <a href="https://dtmoney.thiagotejada.dev.br/"> Clique aqui</a>
+
+   Obs: Não persiste os dados, funcionando localmente no navegador.
+
+
 ## Pré-requisitos
 
 - Node.js e npm instalados globalmente na máquina
