@@ -32,34 +32,62 @@ export const TransactionsContext = createContext({} as TransactionContextType)
 export function TransactionsProvider({ children }: TransactionsProviderProps) {
   const [transactions, setTransactions] = useState<Transaction[]>([])
 
+  //os codigos comentados abaixos sao codigos para funcionar com back-end
+  //json-server em ambiente de desenvolvimento
+  //foi feito ajustes para funcionar localmente somente no front porem sem presistencia dos dados
   async function fetchTransactions(query?: string) {
-    const response = await api.get('transactions', {
-      params: {
-        _sort: 'createdAt',
-        _order: 'desc',
-        q: query,
-      },
-    })
+    // const response = await api.get('transactions', {
+    //   params: {
+    //     _sort: 'createdAt',
+    //     _order: 'desc',
+    //     q: query,
+    //   },
+    // })
 
-    setTransactions(response.data)
+    // setTransactions(response.data)
+    if(query)
+      setTransactions(searchTransactions(query))
+  }
+
+  // Função para realizar a pesquisa de texto completo em qualquer campo
+  function searchTransactions(searchTerm: string): Transaction[] {
+    return transactions.filter(transaction =>
+      Object.values(transaction).some(value =>
+        typeof value === 'string' && value.toLowerCase().includes(searchTerm.toLowerCase())
+      )
+    );
   }
 
   async function createTransaction(data: CreateTransactionInputs) {
     const { description, category, price, type } = data
-    const response = await api.post('transactions', {
+    // const response = await api.post('transactions', {
+    //   description,
+    //   category,
+    //   price,
+    //   type,
+    //   createdAt: new Date(),
+    // })
+
+    // setTransactions((state) => [response.data, ...state])
+
+    const NewTransacrion:Transaction  = {
+
       description,
       category,
       price,
       type,
-      createdAt: new Date(),
-    })
+      createdAt: new Date().toString(),
+      id: transactions.length + 1
+    }
+    
 
-    setTransactions((state) => [response.data, ...state])
+    setTransactions((state) => [NewTransacrion, ...state])
   }
 
-  useEffect(() => {
-    fetchTransactions()
-  }, [])
+  // useEffect(() => {
+  //   fetchTransactions()
+  // }, [])
+  
   return (
     <TransactionsContext.Provider
       value={{
